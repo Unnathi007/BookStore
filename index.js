@@ -228,11 +228,8 @@ app.post('/searchbytitle', function (req, res) {
     })
 })
 app.get('/BestSellers', function (req, res) {
-<<<<<<< HEAD
+
     db.collection('books').find({"bestSeller":true}).toArray(function (error, result) {
-=======
-    db.collection('bestseller').find({}).toArray(function (error, result) {
->>>>>>> 17748a6beaa12fae1cf85875897cdf5ee614106c
         //console.log(result);
         if (result.length > 0) {
             res.render('book.hbs', {
