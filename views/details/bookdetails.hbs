@@ -6,6 +6,9 @@
             <img style="width:300px;height:300px" src="{{this.imagepath}}" class="card-img-top" alt="...">
         </div>
         <div class="col-md-7">
+            {{#if this.bestSeller}}
+                    <p style="font-size:30px;color:darkgoldenrod"><i class="fa fa-star" aria-hidden="true"></i>&nbsp;Best Seller</p>
+            {{/if}}
             <h1 style="color:brown;font-weight:bold;padding-bottom:10px">{{this.title}}</h1>
             <h4 style="color:black;font-weight:bold;">Product Details</h4>
             <ul style="list-style-type: none">

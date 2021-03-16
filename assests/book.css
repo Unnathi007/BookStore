@@ -7,7 +7,7 @@
 }
 .card-body {
     padding: 6px;
-    height: 250px;
+    height: 350px;
 }
 .card:hover{
     box-shadow: 0 6px 20px 3px rgba(23, 15, 15, 1);

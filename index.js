@@ -19,7 +19,7 @@ var db;
 mongoClient.connect(url, { useNewUrlParser: true, useUnifiedTopology: true }, function (error, client) {
     console.log(url);
     if (error) throw error;
-    db = client.db('OnlineBookStr');
+    db = client.db('BookStore');
     app.locals.db = db;
 })
 app.use(session({
@@ -130,7 +130,7 @@ app.post("/signup", function (req, res) {
 //.toArray
 app.get('/', function (req, res) {
     db.collection('books').find({}).toArray(function (error, result) {
-        console.log(result);
+        //console.log(result);
         if (result.length > 0) {
             res.render('home', {
                 layout: 'main.hbs',
@@ -158,6 +158,115 @@ app.get('/contact', function (req, res) {
         userdetails: req.session.userdetails,
         loggedin: req.session.loggedIn,
         style: "contact.css"
+    })
+})
+app.get('/searchbyauthor', function (req, res) {
+    res.render('searchbyauthor.hbs', {
+        layout: 'main.hbs',
+        title: "Search By Author",
+        username: req.session.username,
+        notification: req.session.notification,
+        userid: req.session.userid,
+        userdetails: req.session.userdetails,
+        loggedin: req.session.loggedIn,
+        style: "contact.css"
+    })
+})
+app.post('/searchbyauthor', function (req, res) {
+    console.log("hi");
+    console.log(req.body.author);
+    db.collection('books').find({ "author": new RegExp(req.body.author,'i') }).toArray(function (error, result) {
+        //console.log(result);
+        if (result.length > 0) {
+            res.render('book.hbs', {
+                layout: 'main.hbs',
+                style: "book.css",
+                loggedin: req.session.loggedIn,
+                username: req.session.username,
+                adminloggin: req.session.adminloggin,
+                userid: req.session.userid,
+                userdetails: req.session.userdetails,
+                data: result,
+                notification: req.session.notification
+            })
+        } else {
+            res.send("Sorry no books are available under this category")
+        }
+    })
+})
+app.get('/searchbytitle', function (req, res) {
+    res.render('searchbytitle.hbs', {
+        layout: 'main.hbs',
+        title: "Search By Title",
+        username: req.session.username,
+        notification: req.session.notification,
+        userid: req.session.userid,
+        userdetails: req.session.userdetails,
+        loggedin: req.session.loggedIn,
+        style: "contact.css"})
+})
+app.post('/searchbytitle', function (req, res) {
+    console.log("hi");
+    console.log(req.body.title);
+    db.collection('books').find({ "title": new RegExp(req.body.title,'i') }).toArray(function (error, result) {
+        //console.log(result);
+        if (result.length > 0) {
+            res.render('book.hbs', {
+                layout: 'main.hbs',
+                style: "book.css",
+                loggedin: req.session.loggedIn,
+                username: req.session.username,
+                adminloggin: req.session.adminloggin,
+                userid: req.session.userid,
+                userdetails: req.session.userdetails,
+                data: result,
+                notification: req.session.notification
+            })
+        } else {
+            res.send("Sorry no books are available under this category")
+        }
+    })
+})
+app.get('/BestSellers', function (req, res) {
+    db.collection('books').find({"bestSeller":true}).toArray(function (error, result) {
+        //console.log(result);
+        if (result.length > 0) {
+            res.render('book.hbs', {
+                title: "Best Sellers",
+                username: req.session.username,
+                style: "../book.css",
+                data: result,
+                layout: 'main.hbs',
+                userid: req.session.userid,
+                userdetails: req.session.userdetails,
+                username: req.session.username,
+                notification: req.session.notification,
+                loggedin: req.session.loggedIn
+                })
+        } else {
+            res.send("Sorry no books are available under this category")
+        }
+    })
+})
+app.get('/NewRelease', function (req, res) {
+    db.collection('newrelease').find({}).toArray(function (error, result) {
+        //console.log(result);
+        if (result.length > 0) {
+            res.render('book.hbs', {
+                title: "New Releases",
+                username: req.session.username,
+                style: "../book.css",
+                data: result,
+                layout: 'main.hbs',
+                userid: req.session.userid,
+                userdetails: req.session.userdetails,
+                username: req.session.username,
+                notification: req.session.notification,
+                loggedin: req.session.loggedIn
+                })
+        } else {
+            res.send("Sorry no books are available under this category")
+        }
     })
 })
 app.get('/sell', function (req, res) {
@@ -277,7 +386,7 @@ app.delete('/deletebook', function (req, res) {
 //End crud operations
 //categories
 app.get('/category/:category', function (req, res) {
-    db.collection('books').find({ "Category": req.params.category }).toArray(function (error, result) {
+    db.collection('books').find({"category": new RegExp(req.params.category ,'i')}).toArray(function (error, result) {
         if (result.length > 0) {
             res.render('book.hbs', {
                 style: "../book.css",
@@ -561,7 +670,9 @@ app.post('/buyproduct/:data', function (req, res) {
         console.log(data)
         const { name, mobilenumber, pincode, landmark, town, state, orderData } = data
         var address = { name, mobilenumber, pincode, landmark, town, state, orderData }
+        console.log(userid)
         db.collection("users").findOne({ _id: userid }, function (err, result) {
+            console.log(result);
             if (err) throw error
             if (result) {
                 var cart = result.cart
@@ -573,7 +684,8 @@ app.post('/buyproduct/:data', function (req, res) {
                     if (result) {
                         db.collection('users').updateOne({ _id: userid }, { $pull: { cart: { $exists: true } } }, function (error, result) {
                             if (error) throw error
-                            req.session.notification = 0
+                            req.session.notification = 0;
+                            console.log("hi");
                             res.json({
                                 success: "Ordered successfully"
                             })

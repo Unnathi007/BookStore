@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>BookBooth</title>
+    <link rel = "icon" href = "../images/booklogo.jpg" type = "image/x-icon"> 
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
         crossorigin="anonymous">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -36,6 +37,9 @@
             <div class="nav-data collapse navbar-collapse" id="navbarText" style='margin-left:20px'>
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item">
+                        <img src="../images/bookhome.jpg">
+                    </li>
+                    <li class="nav-item">
                         <a class="nav-link" href="/">Home <span class="sr-only">(current)</span></a>
                     </li>
                     {{!-- <li class="nav-item">
@@ -47,20 +51,35 @@
                             Categories
                         </a>
                         <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                            <a class="dropdown-item bookpage" value="Auto biography">Auto biography</a>
-                            <a class="dropdown-item bookpage" value="action">Action</a>
+                            
+                            <a class="dropdown-item bookpage" value="mystery">Mystery</a>
+                            <a class="dropdown-item bookpage" value="Science fiction">Science fiction</a>
+                            <a class="dropdown-item bookpage" value="fantasy">Fantasy</a>
                             <a class="dropdown-item bookpage" value="adventure">Adventure</a>
-                            <a class="dropdown-item bookpage" value="biography">Biography</a>
-                            <a class="dropdown-item bookpage" value="classics">Classics</a>
+                            <a class="dropdown-item bookpage" value="autobiography">Auto Biography</a>
+                            <a class="dropdown-item bookpage" value="paranormal">Paranormal</a>
                             <a class="dropdown-item bookpage" value="thriller">Thriller</a>
                             <a class="dropdown-item bookpage" value="Horror">Horror</a>
-                            <a class="dropdown-item bookpage" value="fiction">Fiction</a>
+                            <a class="dropdown-item bookpage" value="biography">BioGraphy</a>
+                            <a class="dropdown-item bookpage" value="romance">Romance</a>
                             {{!-- <a class="dropdown-item bookpage" value="crime-thriller">Crime and Thriller</a>
                             <a class="dropdown-item bookpage" value="fantacy">Fantacy</a>
                             <a class="dropdown-item bookpage" value="friction">Fiction</a>
                             <a class="dropdown-item bookpage" value="educational">Educational Books</a>
                             <a class="dropdown-item bookpage" value="children">Children Books</a> --}}
                         </div>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/searchbyauthor">Search by Author</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/searchbytitle">Search by Book Title</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/BestSellers">Best Sellers</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="/NewRelease">New Releases</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="/contact">Contact</a>
